@@ -17,6 +17,7 @@ export default [
     addNavMenuItem(
         {
             id: 'refunds',
+            icon: 'undo',
             label: 'Refunds',
             routerLink: ['/extensions/refunds'],
         },

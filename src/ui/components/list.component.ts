@@ -25,21 +25,21 @@ export class ListComponent
     // to use in the data table
     readonly filters = this.createFilterCollection()
         .addDateFilters()
-        .addFilter({
-            name: 'method',
-            type: { kind: 'text' },
-            label: 'Method',
-            filterField: 'method',
-        })
+        .addFilter({ name: 'state', type: { kind: 'text' }, label: 'State', filterField: 'state',})
+        .addFilter({ name: 'method', type: { kind: 'text' }, label: 'Method', filterField: 'method',})
+        .addFilter({ name: 'transactionId', type: { kind: 'text' }, label: 'TransactionId', filterField: 'transactionId',})
         .connectToRoute(this.route);
 
     // Here we set up the sorting options that will be available
     // to use in the data table
     readonly sorts = this.createSortCollection()
         .defaultSort('createdAt', 'DESC')
+        .addSort({ name: 'id' })
         .addSort({ name: 'createdAt' })
         .addSort({ name: 'updatedAt' })
+        .addSort({ name: 'state' })
         .addSort({ name: 'method' })
+        .addSort({ name: 'transactionId' })
         .connectToRoute(this.route);
 
     constructor() {
@@ -52,9 +52,9 @@ export class ListComponent
                     skip,
                     take,
                     filter: {
-                        method: {
-                            contains: this.searchTermControl.value ?? undefined,
-                        },
+                        // state: {
+                        //     contains: this.searchTermControl.value ?? undefined,
+                        // },
                         ...this.filters.createFilterInput(),
                     },
                     sort: this.sorts.createSortInput(),
