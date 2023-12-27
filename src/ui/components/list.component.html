@@ -1,0 +1,89 @@
+<!-- optional if you want some button at the top -->
+<!-- <vdr-page-block>
+    <vdr-action-bar>
+        <vdr-ab-left></vdr-ab-left>
+        <vdr-ab-right>
+            <a class="btn btn-primary" [routerLink]="['./', 'create']">
+                <clr-icon shape="plus"></clr-icon>
+                Create a refund
+            </a>
+        </vdr-ab-right>
+    </vdr-action-bar>
+</vdr-page-block> -->
+
+<vdr-data-table-2
+    id="refund-list"
+    [items]="items$ | async"
+    [itemsPerPage]="itemsPerPage$ | async"
+    [totalItems]="totalItems$ | async"
+    [currentPage]="currentPage$ | async"
+    [filters]="filters"
+    (pageChange)="setPageNumber($event)"
+    (itemsPerPageChange)="setItemsPerPage($event)"
+>
+    <!-- optional if you want to support bulk actions -->
+    <vdr-bulk-action-menu
+        locationId="refund-list"
+        [hostComponent]="this"
+        [selectionManager]="selectionManager"
+    />
+
+    <!-- Adds a search bar -->
+    <vdr-dt2-search [searchTermControl]="searchTermControl" searchTermPlaceholder="Filter by method" />
+
+    <!-- Here we define all the available columns -->
+    <vdr-dt2-column [heading]="'common.id' | translate" id="id" [hiddenByDefault]="true">
+        <ng-template let-refund="item">{{ refund.id }}</ng-template>
+    </vdr-dt2-column>
+    
+    <vdr-dt2-column [heading]="'common.created-at' | translate" id="created-at" [hiddenByDefault]="true" [sort]="sorts.get('createdAt')">
+        <ng-template let-refund="item">{{ refund.createdAt | localeDate : 'short' }}</ng-template>
+    </vdr-dt2-column>
+    
+    <vdr-dt2-column [heading]="'common.updated-at' | translate" id="updated-at" [hiddenByDefault]="true" [sort]="sorts.get('updatedAt')" >
+        <ng-template let-refund="item"> {{ refund.updatedAt | localeDate : 'short' }} </ng-template>
+    </vdr-dt2-column>
+
+    <vdr-dt2-column [heading]="'order.payment-method' | translate" id="method" [hiddenByDefault]="false" [sort]="sorts.get('method')" >
+        <ng-template let-refund="item"> 
+            <a class="button-ghost" [routerLink]="['./', refund.id]"><span>{{ refund.method }}</span><clr-icon shape="arrow right"></clr-icon> </a> 
+        </ng-template>
+    </vdr-dt2-column>
+
+    <vdr-dt2-column [heading]="'order.refund-reason' | translate" id="reason" [hiddenByDefault]="false">
+        <ng-template let-refund="item">{{ refund.reason }}</ng-template>
+    </vdr-dt2-column>
+
+    <vdr-dt2-column [heading]="'order.payment-state' | translate" id="state" [hiddenByDefault]="false">
+        <ng-template let-refund="item">{{ refund.state }}</ng-template>
+    </vdr-dt2-column>
+
+    <vdr-dt2-column [heading]="'order.transaction-id' | translate" id="transactionId" [hiddenByDefault]="false">
+        <ng-template let-refund="item">{{ refund.transactionId }}</ng-template>
+    </vdr-dt2-column>
+
+    <vdr-dt2-column [heading]="'order.refund-metadata' | translate" id="metadata" [hiddenByDefault]="true">
+        <ng-template let-refund="item">{{ refund.metadata }}</ng-template>
+    </vdr-dt2-column>
+
+    <vdr-dt2-column [heading]="'order.payment' | translate" id="paymentId" [hiddenByDefault]="true">
+        <ng-template let-refund="item">{{ refund.paymentId }}</ng-template>
+    </vdr-dt2-column>
+
+    <vdr-dt2-column [heading]="'order.amount' | translate" id="items" [hiddenByDefault]="false">
+        <ng-template let-refund="item">{{ refund.items | localeCurrency: currencyCode }}</ng-template>
+    </vdr-dt2-column>
+
+    <vdr-dt2-column [heading]="'order.shipping' | translate" id="shipping" [hiddenByDefault]="false">
+        <ng-template let-refund="item">{{ refund.shipping | localeCurrency: currencyCode }}</ng-template>
+    </vdr-dt2-column>
+
+    <vdr-dt2-column [heading]="'order.refund-adjustment' | translate" id="adjustment" [hiddenByDefault]="false">
+        <ng-template let-refund="item">{{ refund.adjustment | localeCurrency: currencyCode }}</ng-template>
+    </vdr-dt2-column>
+
+    <vdr-dt2-column [heading]="'order.refund-total' | translate" id="total" [hiddenByDefault]="false">
+        <ng-template let-refund="item">{{ refund.total | localeCurrency: currencyCode }}</ng-template>
+    </vdr-dt2-column>
+    
+</vdr-data-table-2>
