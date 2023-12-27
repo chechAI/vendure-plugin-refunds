@@ -1,0 +1,53 @@
+{
+  "overwrite": true,
+  "config": {
+    "namingConvention": {
+      "enumValues": "keep"
+    },
+    "strict": true,
+    "scalars": {
+      "ID": "string",
+      "Money": "number"
+    },
+    "maybeValue": "T"
+
+  },
+  "generates": {
+    "src/generated-admin-types.ts": {
+      "schema": "http://localhost:3000/admin-api",
+      "plugins": [
+        {
+          "add": {
+            "content": "/* eslint-disable */"
+          }
+        },
+        "typescript"
+      ]
+    },
+    "src/generated-shop-types.ts": {
+      "schema": "http://localhost:3000/shop-api",
+      "plugins": [
+        {
+          "add": {
+            "content": "/* eslint-disable */"
+          }
+        },
+        "typescript"
+      ]
+    },
+    "src/ui/generated-types.ts": {
+      "schema": "http://localhost:3000/admin-api",
+      "documents": "src/ui/**/*graphql.ts",
+      "plugins": [
+        {
+          "add": {
+            "content": "/* eslint-disable */"
+          }
+        },
+        "typescript",
+        "typescript-operations",
+        "typed-document-node"
+      ]
+    }
+  }
+}
