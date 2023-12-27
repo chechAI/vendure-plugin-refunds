@@ -5,5 +5,18 @@
   "main": "index.js",
   "repository": "git@github.com:jermainedafoe/vendure-plugin-refunds.git",
   "author": "Jermaine Dafoe <etesfaye@hotmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "codegen": "graphql-codegen --config ./codegen.json"
+  },
+  "devDependencies": {
+    "@graphql-codegen/add": "5.0.0",
+    "@graphql-codegen/cli": "5.0.0",
+    "@graphql-codegen/fragment-matcher": "5.0.0",
+    "@graphql-codegen/typed-document-node": "^5.0.1",
+    "@graphql-codegen/typescript": "4.0.1",
+    "@graphql-codegen/typescript-operations": "4.0.1",
+    "@graphql-tools/schema": "^10.0.0"
+  }
 }
